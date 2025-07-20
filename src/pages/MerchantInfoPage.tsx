@@ -3,6 +3,13 @@ import { useNavigate, useLocation } from 'react-router';
 import { overlay } from 'overlay-kit';
 import { useState, useEffect, useCallback } from 'react';
 
+interface AddressType {
+  street: string;
+  city: string;
+  state: string;
+  zipcode: string;
+}
+
 export function MerchantInfoPage() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -12,7 +19,12 @@ export function MerchantInfoPage() {
   const [name, setName] = useState(prevName);
   const [storeName, setStoreName] = useState(location.state?.storeName ?? '');
   const [bizNumber, setBizNumber] = useState(location.state?.bizNumber ?? '');
-  const [address, setAddress] = useState('');
+  const [address, setAddress] = useState<AddressType>({
+    street: '',
+    city: '',
+    state: '',
+    zipcode: '',
+  });
   const [detailAddress, setDetailAddress] = useState(location.state?.detailAddress ?? '');
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -25,7 +37,14 @@ export function MerchantInfoPage() {
 
   // form 유효성 검사 감지
   useEffect(() => {
-    const valid = storeName !== '' && bizNumber.length === 10 && address !== '' && detailAddress !== '';
+    const isAddressFilled =
+      address.street.trim() !== '' &&
+      address.city.trim() !== '' &&
+      address.state.trim() !== '' &&
+      address.zipcode.trim() !== '';
+
+    const valid = storeName.trim() !== '' && bizNumber.length === 10 && isAddressFilled && detailAddress.trim() !== '';
+
     setIsFormValid(valid);
   }, [storeName, bizNumber, address, detailAddress]);
 
@@ -54,7 +73,7 @@ export function MerchantInfoPage() {
           name: storeName,
           businessNumber: bizNumber,
           address: {
-            street: address,
+            street: addressString,
             city: '',
             state: '',
             zipcode: '',
@@ -91,6 +110,8 @@ export function MerchantInfoPage() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [isFormValid, handleNextClick]);
 
+  const addressString = [address.city, address.state, address.street].filter(Boolean).join(' ') || '';
+
   return (
     <>
       <NavigationBar left={<Assets.Icon name="icon-arrow-left-mono" shape={{ width: 32, height: 32 }} />} />
@@ -102,7 +123,7 @@ export function MerchantInfoPage() {
       <Flex direction="column" css={{ padding: '0 24px', gap: 20 }}>
         <TextFieldLine placeholder="상호명" value={storeName} onChange={e => setStoreName(e.target.value)} />
         <TextFieldLine placeholder="사업자등록번호" value={bizNumber} onChange={handleBizNumberChange} maxLength={10} />
-        <TextFieldLine placeholder="주소" value={address} readOnly onClick={handleAddressClick} />
+        <TextFieldLine placeholder="주소" value={addressString} readOnly onClick={handleAddressClick} />
         <TextFieldLine placeholder="상세주소" value={detailAddress} onChange={e => setDetailAddress(e.target.value)} />
       </Flex>
       <FixedBottomCTA

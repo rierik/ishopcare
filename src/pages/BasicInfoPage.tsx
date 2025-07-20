@@ -1,6 +1,6 @@
 import { Assets, Flex, NavigationBar, TextFieldLine, Top, Spacing, FixedBottomCTA } from 'ishopcare-lib';
 import { useNavigate } from 'react-router';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function BasicInfoPage() {
   const navigate = useNavigate();
@@ -8,6 +8,8 @@ export function BasicInfoPage() {
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
+
+  const nameInputRef = useRef<HTMLInputElement>(null);
 
   // 휴대폰 번호 숫자만 허용
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,6 +37,10 @@ export function BasicInfoPage() {
     };
   }, [isFormValid, navigate]);
 
+  useEffect(() => {
+    nameInputRef.current?.focus();
+  }, []);
+
   return (
     <>
       <NavigationBar
@@ -48,7 +54,7 @@ export function BasicInfoPage() {
       />
       <Spacing size={20} />
       <Flex direction="column" css={{ padding: '0 24px', gap: 20 }}>
-        <TextFieldLine placeholder="이름" value={name} onChange={e => setName(e.target.value)} />
+        <TextFieldLine placeholder="이름" value={name} onChange={e => setName(e.target.value)} ref={nameInputRef} />
         <TextFieldLine placeholder="휴대폰 번호" value={phone} onChange={handlePhoneChange} />
         <TextFieldLine placeholder="이메일" value={email} onChange={e => setEmail(e.target.value)} />
       </Flex>

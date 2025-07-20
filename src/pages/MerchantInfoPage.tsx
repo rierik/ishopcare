@@ -1,7 +1,7 @@
 import { Assets, FixedBottomCTA, Flex, NavigationBar, Spacing, TextFieldLine, Toast, Top } from 'ishopcare-lib';
 import { useNavigate, useLocation } from 'react-router';
 import { overlay } from 'overlay-kit';
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 
 interface AddressType {
   street: string;
@@ -32,6 +32,8 @@ export function MerchantInfoPage() {
 
   const [detailAddress, setDetailAddress] = useState(location.state?.detailAddress ?? '');
   const [isFormValid, setIsFormValid] = useState(false);
+
+  const storeNameInputRef = useRef<HTMLInputElement>(null);
 
   // 주소 상태 갱신
   useEffect(() => {
@@ -136,6 +138,9 @@ export function MerchantInfoPage() {
 
   const addressString = [address.city, address.state, address.street].filter(Boolean).join(' ') || '';
 
+  useEffect(() => {
+    storeNameInputRef.current?.focus();
+  }, []);
   return (
     <>
       <NavigationBar
@@ -153,7 +158,12 @@ export function MerchantInfoPage() {
       />
       <Spacing size={20} />
       <Flex direction="column" css={{ padding: '0 24px', gap: 20 }}>
-        <TextFieldLine placeholder="상호명" value={storeName} onChange={e => setStoreName(e.target.value)} />
+        <TextFieldLine
+          placeholder="상호명"
+          value={storeName}
+          onChange={e => setStoreName(e.target.value)}
+          ref={storeNameInputRef}
+        />
         <TextFieldLine placeholder="사업자등록번호" value={bizNumber} onChange={handleBizNumberChange} maxLength={10} />
         <TextFieldLine placeholder="주소" value={addressString} readOnly onClick={handleAddressClick} />
         <TextFieldLine placeholder="상세주소" value={detailAddress} onChange={e => setDetailAddress(e.target.value)} />

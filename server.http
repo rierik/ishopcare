@@ -1,0 +1,44 @@
+### 주소 검색하기
+GET http://localhost:4200/api/addresses?search=테헤란로
+
+### 기가맹 여부 확인하기
+POST http://localhost:4200/api/merchants/validation
+Content-Type: application/json
+
+{
+  "name": "매장명",
+  "businessNumber": "0000000000",
+  "address": {
+    "street": "테헤란로142",
+    "city": "서울특별시",
+    "state": "강남구",
+    "zipcode": "06236"
+  }
+}
+
+### 업종 목록 불러오기
+GET http://localhost:4200/api/business-categories
+
+### 제출하기
+POST http://localhost:4200/api/contracts
+Content-Type: application/json
+
+{
+  "basic": {
+    "name": "김사장님",
+    "phone": "01012345678",
+    "email": "test@test.com"
+  },
+  "merchant": {
+    "name": "내매장",
+    "businessNumber": "0000000001",
+    "address": {
+      "street": "테헤란로142",
+      "city": "서울특별시",
+      "state": "강남구",
+      "zipcode": "06236",
+      "details": "12층 아크플레이스"
+    }
+  },
+  "businessCategory": "FOOD"
+}

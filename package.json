@@ -1,0 +1,36 @@
+{
+  "name": "ishopcare-merchant-contract",
+  "type": "module",
+  "packageManager": "pnpm@10.12.1",
+  "scripts": {
+    "dev": "vite dev --port 4200"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.0",
+    "ishopcare-lib": "file:ishopcare-lib.tgz",
+    "overlay-kit": "1.8.2",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "react-router": "^7.6.2",
+    "zod": "^3.25.67"
+  },
+  "devDependencies": {
+    "@eslint/js": "9.29.0",
+    "@hono/vite-dev-server": "^0.19.1",
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "@vitejs/plugin-react-swc": "^3.10.2",
+    "eslint": "9.29.0",
+    "eslint-config-prettier": "10.1.5",
+    "eslint-plugin-prettier": "5.5.0",
+    "eslint-plugin-react": "7.37.5",
+    "eslint-plugin-react-hooks": "5.2.0",
+    "globals": "^16.2.0",
+    "hono": "^4.8.2",
+    "prettier": "3.5.3",
+    "typescript": "5.8.3",
+    "typescript-eslint": "8.34.1",
+    "vite": "6.3.5"
+  }
+}

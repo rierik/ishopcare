@@ -37,7 +37,11 @@ export function BasicInfoPage() {
 
   return (
     <>
-      <NavigationBar left={<Assets.Icon name="icon-arrow-left-mono" shape={{ width: 32, height: 32 }} />} />
+      <NavigationBar
+        left={
+          <Assets.Icon name="icon-arrow-left-mono" shape={{ width: 32, height: 32 }} onClick={() => navigate('/')} />
+        }
+      />
       <Top
         title={<Top.TitleParagraph>대표자 정보를 입력해주세요</Top.TitleParagraph>}
         subtitle={<Top.SubTitleParagraph>사업자등록증 상의 대표자 정보를 입력해야 해요.</Top.SubTitleParagraph>}

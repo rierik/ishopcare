@@ -138,7 +138,15 @@ export function MerchantInfoPage() {
 
   return (
     <>
-      <NavigationBar left={<Assets.Icon name="icon-arrow-left-mono" shape={{ width: 32, height: 32 }} />} />
+      <NavigationBar
+        left={
+          <Assets.Icon
+            name="icon-arrow-left-mono"
+            shape={{ width: 32, height: 32 }}
+            onClick={() => navigate('/basic-info')}
+          />
+        }
+      />
       <Top
         title={<Top.TitleParagraph>매장 정보를 입력해주세요</Top.TitleParagraph>}
         subtitle={<Top.SubTitleParagraph>{name}님의 매장 정보가 필요해요.</Top.SubTitleParagraph>}
@@ -153,7 +161,7 @@ export function MerchantInfoPage() {
       <FixedBottomCTA
         onClick={() => {
           if (!isFormValid) return;
-          handleNextClick;
+          handleNextClick();
         }}
         css={{
           backgroundColor: isFormValid ? '' : '#ccc',

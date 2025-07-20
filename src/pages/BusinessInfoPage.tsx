@@ -68,7 +68,15 @@ export function BusinessInfoPage() {
 
   return (
     <>
-      <NavigationBar left={<Assets.Icon name="icon-arrow-left-mono" shape={{ width: 32, height: 32 }} />} />
+      <NavigationBar
+        left={
+          <Assets.Icon
+            name="icon-arrow-left-mono"
+            shape={{ width: 32, height: 32 }}
+            onClick={() => navigate('/merchant-info')}
+          />
+        }
+      />
       <Top
         title={<Top.TitleParagraph>{merchant.name} 매장의 업종을 알려주세요</Top.TitleParagraph>}
         subtitle={<Top.SubTitleParagraph>업종에 따라 제출해야할 서류가 달라요.</Top.SubTitleParagraph>}
@@ -95,7 +103,7 @@ export function BusinessInfoPage() {
       <FixedBottomCTA
         onClick={() => {
           if (!selectedCategoryValue) return;
-          handleSubmit;
+          handleSubmit();
         }}
         css={{
           backgroundColor: selectedCategoryValue ? '' : '#ccc',

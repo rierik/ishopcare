@@ -51,7 +51,7 @@ export function BasicInfoPage() {
       <FixedBottomCTA
         disabled={!isFormValid}
         onClick={() => {
-          navigate('/merchant-info');
+          navigate('/merchant-info', { state: { name } });
         }}
         css={{
           backgroundColor: isFormValid ? '' : '#ccc',

@@ -22,7 +22,7 @@ export function BasicInfoPage() {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && isFormValid) {
-      navigate('/merchant-info');
+      navigate('/merchant-info', { state: { name } });
     }
   };
   useEffect(() => {

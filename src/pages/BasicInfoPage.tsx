@@ -49,8 +49,8 @@ export function BasicInfoPage() {
         <TextFieldLine placeholder="이메일" value={email} onChange={e => setEmail(e.target.value)} />
       </Flex>
       <FixedBottomCTA
-        disabled={!isFormValid}
         onClick={() => {
+          if (!isFormValid) return;
           navigate('/merchant-info', { state: { name, phone, email } });
         }}
         css={{

@@ -151,8 +151,10 @@ export function MerchantInfoPage() {
         <TextFieldLine placeholder="상세주소" value={detailAddress} onChange={e => setDetailAddress(e.target.value)} />
       </Flex>
       <FixedBottomCTA
-        disabled={!isFormValid}
-        onClick={handleNextClick}
+        onClick={() => {
+          if (!isFormValid) return;
+          handleNextClick;
+        }}
         css={{
           backgroundColor: isFormValid ? '' : '#ccc',
           color: isFormValid ? '' : '#666',

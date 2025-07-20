@@ -93,8 +93,10 @@ export function BusinessInfoPage() {
       </Flex>
 
       <FixedBottomCTA
-        onClick={handleSubmit}
-        disabled={!selectedCategoryValue}
+        onClick={() => {
+          if (!selectedCategoryValue) return;
+          handleSubmit;
+        }}
         css={{
           backgroundColor: selectedCategoryValue ? '' : '#ccc',
           color: selectedCategoryValue ? '' : '#666',

@@ -14,17 +14,22 @@ export function MerchantInfoPage() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const prevName = location.state?.name ?? 'ㅇㅇㅇ';
+  const prevBasic = {
+    name: location.state?.name ?? 'ㅇㅇㅇ',
+    phone: location.state?.phone ?? '',
+    email: location.state?.email ?? '',
+  };
 
-  const [name, setName] = useState(prevName);
+  const [name, setName] = useState(prevBasic.name);
+  const [phone, setPhone] = useState(prevBasic.phone);
+  const [email, setEmail] = useState(prevBasic.email);
+
   const [storeName, setStoreName] = useState(location.state?.storeName ?? '');
   const [bizNumber, setBizNumber] = useState(location.state?.bizNumber ?? '');
-  const [address, setAddress] = useState<AddressType>({
-    street: '',
-    city: '',
-    state: '',
-    zipcode: '',
-  });
+
+  const prevAddress = location.state?.address ?? { street: '', city: '', state: '', zipcode: '' };
+  const [address, setAddress] = useState(prevAddress);
+
   const [detailAddress, setDetailAddress] = useState(location.state?.detailAddress ?? '');
   const [isFormValid, setIsFormValid] = useState(false);
 
@@ -73,10 +78,10 @@ export function MerchantInfoPage() {
           name: storeName,
           businessNumber: bizNumber,
           address: {
-            street: addressString,
-            city: '',
-            state: '',
-            zipcode: '',
+            street: address.street,
+            city: address.city,
+            state: address.state,
+            zipcode: address.zipcode,
           },
         }),
       });
@@ -93,7 +98,26 @@ export function MerchantInfoPage() {
         throw new Error(data.message || '알 수 없는 오류가 발생했습니다.');
       }
 
-      navigate('/business-info');
+      navigate('/business-info', {
+        state: {
+          basic: {
+            name: name,
+            phone: phone,
+            email: email,
+          },
+          merchant: {
+            name: storeName,
+            businessNumber: bizNumber,
+            address: {
+              street: address.street,
+              city: address.city,
+              state: address.state,
+              zipcode: address.zipcode,
+              details: detailAddress,
+            },
+          },
+        },
+      });
     } catch (err) {
       console.error(err);
     }

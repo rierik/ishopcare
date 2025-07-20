@@ -37,7 +37,7 @@ export function AddressPage() {
     navigate('/merchant-info', {
       state: {
         ...prevState,
-        selectedAddress,
+        address: selectedAddress,
       },
     });
   };

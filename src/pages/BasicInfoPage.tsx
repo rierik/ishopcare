@@ -22,7 +22,7 @@ export function BasicInfoPage() {
 
   const handleKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && isFormValid) {
-      navigate('/merchant-info', { state: { name } });
+      navigate('/merchant-info', { state: { name, phone, email } });
     }
   };
   useEffect(() => {
@@ -51,7 +51,7 @@ export function BasicInfoPage() {
       <FixedBottomCTA
         disabled={!isFormValid}
         onClick={() => {
-          navigate('/merchant-info', { state: { name } });
+          navigate('/merchant-info', { state: { name, phone, email } });
         }}
         css={{
           backgroundColor: isFormValid ? '' : '#ccc',
